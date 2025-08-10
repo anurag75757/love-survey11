@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Love Check</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 100px;
+        background-color: #fff0f5;
+    }
+    input, select, button {
+        padding: 10px;
+        margin: 10px;
+        font-size: 16px;
+    }
+    button {
+        cursor: pointer;
+        border-radius: 5px;
+        border: none;
+    }
+    #checkLoveBtn {
+        background-color: #ff4d6d;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <h1>Relationship Status</h1>
+    <label>Are you in a relationship?</label>
+    <select id="relationship" onchange="stepTwo()">
+        <option value="">--Select--</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+
+    <div id="genderDiv" style="display:none;">
+        <label>Your Gender:</label>
+        <select id="gender" onchange="stepThree()">
+            <option value="">--Select--</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </div>
+
+    <div id="partnerNameDiv" style="display:none;">
+        <label id="nameLabel"></label>
+        <input type="text" id="partnerName" placeholder="">
+        <button onclick="sendName()">Submit</button>
+    </div>
+
+    <div id="loveChoiceDiv" style="display:none;">
+        <label>Do you want to check Love Percentage?</label>
+        <select id="loveChoice" onchange="checkLoveChoice()">
+            <option value="">--Select--</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+
+    <div id="resultDiv" style="margin-top:20px;font-size:20px;"></div>
+
+    <script>
+        function stepTwo() {
+            let relation = document.getElementById("relationship").value;
+            if (relation === "yes") {
+                document.getElementById("genderDiv").style.display = "block";
+            } else {
+                document.getElementById("genderDiv").style.display = "none";
+                document.getElementById("partnerNameDiv").style.display = "none";
+                document.getElementById("loveChoiceDiv").style.display = "none";
+                document.getElementById("resultDiv").innerHTML = "";
+            }
+        }
+
+        function stepThree() {
+            let gender = document.getElementById("gender").value;
+            if (gender === "male") {
+                document.getElementById("nameLabel").innerText = "Enter your GF's name:";
+                document.getElementById("partnerName").placeholder = "Her name";
+                document.getElementById("partnerNameDiv").style.display = "block";
+            } else if (gender === "female") {
+                document.getElementById("nameLabel").innerText = "Enter your BF's name:";
+                document.getElementById("partnerName").placeholder = "His name";
+                document.getElementById("partnerNameDiv").style.display = "block";
+            } else {
+                document.getElementById("partnerNameDiv").style.display = "none";
+            }
+        }
+
+        function sendName() {
+            let name = document.getElementById("partnerName").value.trim();
+            if (name === "") {
+                alert("Please enter a name!");
+                return;
+            }
+            console.log("Partner's Name (to send to owner): " + name); // This is where sending can be implemented
+            alert("Name submitted successfully!");
+            document.getElementById("loveChoiceDiv").style.display = "block";
+        }
+
+        function checkLoveChoice() {
+            let choice = document.getElementById("loveChoice").value;
+            if (choice === "yes") {
+                document.getElementById("resultDiv").innerHTML = "🎉 Congo! 100% ❤️";
+            } else if (choice === "no") {
+                document.getElementById("resultDiv").innerHTML = "✅ Thanks! Survey completed.";
+            } else {
+                document.getElementById("resultDiv").innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
